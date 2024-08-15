@@ -140,7 +140,7 @@ export default function CarDetails() {
                     cursor: "pointer",
                   }}
                 >
-                  XA
+                  X
                 </button>
               )}
             </li>
