@@ -1,15 +1,20 @@
 import * as carService from "../../services/carService.js";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../contexts/authContext.jsx";
+import { useContext } from "react";
+
 export default function CarCreate() {
+  const { email } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const createCarSubmitHandler = async (e) => {
     e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const carData = Object.fromEntries(formData);
 
+    carData.creatorEmail = email.split("@")[0].toUpperCase();
     try {
-      await carService.create(
-        Object.fromEntries(new FormData(e.currentTarget))
-      );
+      await carService.create(carData);
       navigate("/cars");
     } catch (error) {
       alert(error.message);

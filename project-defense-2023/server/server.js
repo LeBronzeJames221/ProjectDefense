@@ -1455,6 +1455,7 @@
         imageUrl:
           "https://hips.hearstapps.com/hmg-prod/images/2020-bmw-m8-competition-coupe-104-1570575778.jpg?crop=0.800xw:0.599xh;0.0717xw,0.267xh&resize=1200:*",
         description: "One of the best performance vehicles!",
+        creatorEmail: "PETER",
         _createdOn: 1701786117199,
         _id: "0bccf2ad-551f-4555-b0ed-e38070c36d1d",
       },
@@ -1466,6 +1467,7 @@
         imageUrl:
           "https://www.mtm-usa.com/cdn/shop/products/image_32d970d5-4e66-46c3-a5dd-ade56e8d7138_1600x.jpg?v=1598991094",
         description: "MTM Performance vehicle.",
+        creatorEmail: "GEORGE",
         _createdOn: 1701786453441,
         _id: "4bb4123b-571d-4ccd-a701-df528cbccfed",
       },

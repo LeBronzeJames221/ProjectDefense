@@ -59,7 +59,6 @@ export const AuthProvider = ({ children }) => {
     loginSubmitHandler,
     logoutHandler,
     registerSubmitHandler,
-    usernameMaker,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

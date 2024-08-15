@@ -78,6 +78,8 @@ export default function CarDetails() {
         <h6>{car.model}</h6>
         <p>Price: {car.price} $</p>
         <p>Description: {car.description}</p>
+        <span>Creator: {car.creatorEmail}</span>
+
         {userId === car._ownerId && (
           <div>
             <button
