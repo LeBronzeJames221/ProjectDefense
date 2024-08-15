@@ -16,5 +16,9 @@ export default function useForm(submitHandler, initial) {
     submitHandler(values);
   };
 
-  return { values, onChange, onSubmit };
+  const resetForm = () => {
+    setValues(initial);
+  };
+
+  return { values, onChange, onSubmit, resetForm };
 }

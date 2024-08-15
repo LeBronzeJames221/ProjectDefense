@@ -20,3 +20,9 @@ export const create = async (carId, text) => {
 
   return newComment;
 };
+
+export const remove = async (commentId) => {
+  const response = await request.remove(`${baseUrl}/${commentId}`);
+
+  return response;
+};

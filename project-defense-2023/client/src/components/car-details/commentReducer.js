@@ -6,6 +6,9 @@ const reducer = (state, action) => {
     case "ADD_COMMENT":
       return [...state, action.payload];
 
+    case "DELETE_COMMENT":
+      return state.filter((comment) => comment._id !== action.payload);
+
     default:
       return state;
   }

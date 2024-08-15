@@ -34,9 +34,20 @@ export default function CarDetails() {
       type: "ADD_COMMENT",
       payload: newComment,
     });
+
+    resetForm();
   };
 
-  const { values, onChange, onSubmit } = useForm(addCommentHandler, {
+  const deleteCommentHandler = async (commentId) => {
+    await commentService.remove(commentId);
+
+    dispatch({
+      type: "DELETE_COMMENT",
+      payload: commentId,
+    });
+  };
+
+  const { values, onChange, onSubmit, resetForm } = useForm(addCommentHandler, {
     comment: "",
   });
 
@@ -82,9 +93,9 @@ export default function CarDetails() {
         )}
         <div className="del-edit-buttons">
           {userId === car._ownerId && (
-            <p>You are prohibited to comment your own creations!</p>
+            <p>You are prohibited to comment or like your own creations!</p>
           )}
-          {userId !== car._ownerId && (
+          {userId !== car._ownerId && userId && (
             <>
               <button className="button" onClick={likeButtonClickHandler}>
                 {likes.length === 0 ? "LIKE" : "UNLIKE"}
@@ -92,8 +103,11 @@ export default function CarDetails() {
               {likes.length !== 0 && <span>&#x2764;</span>}
             </>
           )}
+          {!userId && (
+            <p>You have to be logged in to be able to comment or like!</p>
+          )}
 
-          {userId !== car._ownerId && (
+          {userId !== car._ownerId && userId && (
             <div className="comments">
               <form className="form" onSubmit={onSubmit}>
                 <textarea
@@ -111,12 +125,26 @@ export default function CarDetails() {
       </div>
       <div className="show-comments">
         <p>COMMENTS</p>
-        {comments.map(({ _id, text, owner: { email } }) => (
-          <li key={_id} className="single-comment">
-            <ul>
-              {email} : {text}
-            </ul>
-          </li>
+        {comments.map(({ _id, text, owner: { email }, _ownerId }) => (
+          <ul key={_id} className="single-comment">
+            <li>
+              {email.split("@")[0].toUpperCase()} : {text}
+              {_ownerId == userId && (
+                <button
+                  onClick={() => deleteCommentHandler(_id)}
+                  style={{
+                    marginLeft: "10px",
+                    color: "red",
+                    border: "none",
+                    background: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  XA
+                </button>
+              )}
+            </li>
+          </ul>
         ))}
       </div>
     </div>
