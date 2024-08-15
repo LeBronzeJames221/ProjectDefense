@@ -1,22 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import AuthContext from "../../contexts/authContext.jsx";
 import useForm from "../../hooks/useForm";
 import { Link } from "react-router-dom";
 
-const RegisterFormKeys = {
-  Email: "email",
-  Password: "password",
-  ConfirmPassword: "confirm-password",
-};
-
 export default function Register() {
   const { registerSubmitHandler } = useContext(AuthContext);
-  const { values, onChange, onSubmit } = useForm(registerSubmitHandler, {
+  const { values, onChange, onSubmit } = useForm(handleSubmit, {
     email: "",
     password: "",
     confirmPass: "",
   });
+  const [error, setError] = useState("");
+  function handleSubmit() {
+    if (values.password == values.confirmPass) {
+      registerSubmitHandler(values);
+    } else {
+      setError(`Passwords don't match`);
+    }
+  }
 
   return (
     <div className="form-container">
@@ -41,18 +43,19 @@ export default function Register() {
           onChange={onChange}
           values={values.password}
           required
+          minLength={5}
         ></input>
 
-        <label htmlFor="confirm-password">Confirm Password:</label>
+        <label htmlFor="confirmPass">Confirm Password:</label>
         <input
           type="password"
-          id="confirm-password"
-          name="confirm-password"
+          id="confirmPass"
+          name="confirmPass"
           onChange={onChange}
           values={values.confirmPass}
           required
         ></input>
-
+        <span>{error}</span>
         <button type="submit">Register</button>
       </form>
 
